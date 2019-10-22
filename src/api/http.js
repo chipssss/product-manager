@@ -10,7 +10,7 @@ import {Message} from '@alifd/next'
 var instance = axios.create({
   baseURL: SERVER.BASE_URL,
   timeout: '6000',
-  withCredentials: true
+  // withCredentials: true
 });
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/json';

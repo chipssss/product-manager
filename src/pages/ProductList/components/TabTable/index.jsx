@@ -1,115 +1,54 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {Table, Slider} from '@alifd/next'
+import styles from "./index.module.scss";
+import ContainerTitle from "@/components/ContainerTitle";
 import IceContainer from '@icedesign/container';
-import CustomTable from './components/CustomTable';
-import EditDialog from './components/EditDialog';
-import DeleteBalloon from './components/DeleteBalloon';
+import {getImage} from "@/base/utils";
 
-const MOCK_DATA = [
-  {
-    title: '话题一',
-    name: '淘小宝',
-    num: '1000',
-  },
-  {
-    title: '话题二',
-    name: '淘小宝',
-    num: '2000',
-  },
-  {
-    title: '话题三',
-    name: '淘小宝',
-    num: '3000',
-  },
-  {
-    title: '话题四',
-    name: '淘小宝',
-    num: '1500',
-  },
-  {
-    title: '话题五',
-    name: '淘小宝',
-    num: '500',
-  },
-  {
-    title: '话题六',
-    name: '淘小宝',
-    num: '1000',
-  },
-  {
-    title: '话题七',
-    name: '淘小宝',
-    num: '3000',
-  },
-  {
-    title: '其他',
-    name: '淘小宝',
-    num: '1000',
-  },
-];
 
-export default function TabTable() {
-  const [dataSource, setDataSource] = useState(MOCK_DATA);
-
-  const getFormValues = (dataIndex, values) => {
-    const data = [...dataSource];
-    data[dataIndex] = values;
-    setDataSource(data);
+export default function TabTable(params) {
+  const {dataSource} = params;
+  const rowSelection = {
+    onSelect: function (selected, record, records) {
+      console.log('onSelect', selected, record, records);
+    },
+    onSelectAll: function (selected, records) {
+      console.log('onSelectAll', selected, records);
+    }
   };
 
-  const handleRemove = (value, index) => {
-    const data = [...dataSource];
-    data.splice(index, 1);
-    setDataSource(data);
+  const renderImageList = (value, index, record) => {
+    if (!record) return null;
+    // 产品图片展示
+    const imageList = value.map((url, index) => <img key={index} src={getImage(url)} alt="" className={styles.image}/>)
+    return (
+      <div style={{width: '350px'}}>
+        <Slider slidesToShow={4} arrowPosition="outer" dots={false} lazyLoad>
+          {imageList}
+        </Slider>
+
+      </div>
+    );
   };
 
-  const columns = [
-    {
-      title: '话题',
-      dataIndex: 'title',
-      key: 'name',
-      width: 150,
-    },
-    {
-      title: '创建人',
-      dataIndex: 'name',
-      key: 'name',
-      width: 150,
-    },
-    {
-      title: '评测人数',
-      width: 150,
-      dataIndex: 'num',
-      key: 'num',
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: 150,
-      render: (value, index, record) => {
-        return (
-          <span>
-            <EditDialog
-              index={index}
-              record={record}
-              getFormValues={getFormValues}
-            />
-            <DeleteBalloon
-              handleRemove={() => handleRemove(value, index, record)}
-            />
-          </span>
-        );
-      },
-    },
-  ];
   return (
     <div className="tab-table">
-      <IceContainer title="话题列表">
-        <CustomTable
-          dataSource={dataSource}
-          columns={columns}
-          hasBorder={false}
+      <IceContainer className={styles.container}>
+        <ContainerTitle
+          title="产品列表"
+          className={styles.title}
         />
+        <Table dataSource={dataSource} hasHeader={true} hasBorder={false}
+               rowSelection={rowSelection}>
+          <Table.Column dataIndex="name" title={"产品名"}/>
+          <Table.Column dataIndex="price" title={"价格"}/>
+          <Table.Column dataIndex="type" title={"类型"}/>
+          <Table.Column dataIndex="remark" title={"备注"}/>
+          <Table.Column dataIndex="imageList" title={"图片"} cell={renderImageList}/>
+        </Table>
       </IceContainer>
     </div>
   );
 }
+
+

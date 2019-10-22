@@ -12,7 +12,10 @@ function MemberList(props) {
 
   useEffect(() => {
     // 啦取用户数据
-    apiSupplierGetList().then(setDataSource);
+    apiSupplierGetList().then(res => {
+      console.debug(res);
+      setDataSource(res);
+    });
   }, []);
 
   const renderProfile = (value, index, record) => {
@@ -32,11 +35,11 @@ function MemberList(props) {
         title="用户列表"
         className={styles.title}
       />
-      <Table dataSource={dataSource} hasHeader={false} hasBorder={false}>
-        <Table.Column dataIndex="name" cell={renderProfile} />
-        <Table.Column dataIndex="phonenum" />
-        <Table.Column dataIndex="wechat" />
-        <Table.Column dataIndex="location" />
+      <Table dataSource={dataSource} hasHeader={true} hasBorder={false}>
+        <Table.Column dataIndex="name" title={"用户名"} cell={renderProfile} />
+        <Table.Column dataIndex="phonenum" title={"手机号"}/>
+        <Table.Column dataIndex="wechat" title={"微信"}/>
+        <Table.Column dataIndex="location" title={"市场位置"} />
       </Table>
     </IceContainer>
   );

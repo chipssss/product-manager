@@ -1,7 +1,22 @@
 import {get, post} from "@/api/http";
 
 export function apiSupplierGetList() {
-  return get('/backend/user/allSupplierInfo.do');
+  return getSupplierListByStatus(STATUS.passed);
+}
+
+export function apiSupplierGetUnPassedList() {
+  return getSupplierListByStatus(STATUS.unPassed);
+}
+
+const STATUS = {
+  passed: 1,
+  unPassed: 0
+};
+function getSupplierListByStatus(status) {
+  return new Promise(resolve => {
+    get('/backend/user/allSupplierInfo.do')
+      .then(res => resolve(res.filter(item => item.status === status))) // 过滤
+  })
 }
 
 /**

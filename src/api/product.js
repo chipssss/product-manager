@@ -1,13 +1,32 @@
 import {post} from "@/api/http";
 
+let curSearchObj;
+
 /**
  * 模糊搜索产品
  * @param searchObj 格式参考下面定义
  * @returns {Promise<unknown>}
  */
 export function apiProductSearch(searchObj) {
+  curSearchObj = searchObj;
   return post('backend/product/search.do', searchObj);
 }
+
+export function apiProductGetAll() {
+  return apiProductSearch({
+    pageNum: 1,
+    pageSize:10
+  })
+}
+
+export function nextPage() {
+  if (curSearchObj) {
+    curSearchObj.pageNum++;
+  }
+  return apiProductSearch(curSearchObj)
+}
+
+curSearchObj = null;
 
 /**
  * searchProduct 格式
