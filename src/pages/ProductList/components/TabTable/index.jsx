@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Table, Slider} from '@alifd/next'
 import styles from "./index.module.scss";
 import ContainerTitle from "@/components/ContainerTitle";
-import IceContainer from '@icedesign/container';
 import {getImage} from "@/base/utils";
 
 
@@ -10,9 +9,11 @@ export default function TabTable(params) {
   const {dataSource} = params;
   const rowSelection = {
     onSelect: function (selected, record, records) {
+      params.onSelectChange(records);
       console.log('onSelect', selected, record, records);
     },
     onSelectAll: function (selected, records) {
+      params.onSelectChange(records);
       console.log('onSelectAll', selected, records);
     }
   };
@@ -33,11 +34,6 @@ export default function TabTable(params) {
 
   return (
     <div className="tab-table">
-      <IceContainer className={styles.container}>
-        <ContainerTitle
-          title="产品列表"
-          className={styles.title}
-        />
         <Table dataSource={dataSource} hasHeader={true} hasBorder={false}
                rowSelection={rowSelection}>
           <Table.Column dataIndex="name" title={"产品名"}/>
@@ -46,7 +42,6 @@ export default function TabTable(params) {
           <Table.Column dataIndex="remark" title={"备注"}/>
           <Table.Column dataIndex="imageList" title={"图片"} cell={renderImageList}/>
         </Table>
-      </IceContainer>
     </div>
   );
 }

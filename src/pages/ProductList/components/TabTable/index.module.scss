@@ -8,3 +8,9 @@
   border: 1px solid #eee;
 }
 
+.page {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin: 20px;
+}

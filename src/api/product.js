@@ -4,19 +4,17 @@ let curSearchObj;
 
 /**
  * 模糊搜索产品
- * @param searchObj 格式参考下面定义
  * @returns {Promise<unknown>}
+ * @param keyword
  */
-export function apiProductSearch(searchObj) {
+export function apiProductSearch(keyword) {
+  searchObj.keyword = keyword;
   curSearchObj = searchObj;
   return post('backend/product/search.do', searchObj);
 }
 
 export function apiProductGetAll() {
-  return apiProductSearch({
-    pageNum: 1,
-    pageSize:10
-  })
+  return apiProductSearch(null);
 }
 
 export function nextPage() {
@@ -24,6 +22,13 @@ export function nextPage() {
     curSearchObj.pageNum++;
   }
   return apiProductSearch(curSearchObj)
+}
+
+export function apiProductGetByPage(page) {
+  if (curSearchObj) {
+    curSearchObj.pageNum = page;
+  }
+  return post('backend/product/search.do', curSearchObj);
 }
 
 curSearchObj = null;
@@ -41,17 +46,20 @@ export const searchObj = {
 
 /**
  * 导出产品接口
- * @param productIdList
  * @returns {Promise<data>}
  * data : {
  *  "url": "https://www.mikelam.top/", // 服务器相对路径 头部
     "zipUri": "1.zip", // zip包尾部
     "excelUri": "15.excel" // excel表尾部
  * }
+ * @param selected
  */
-export function apiProductOutput(productIdList) {
+export function apiProductOutput(selected) {
+  var idList = [];
+  selected.map(item => idList.push(item.id));
+  console.log('idList', idList)
   return post('/portal/product/output.do', {
-    productIds: productIdList
+    productIds: idList
   })
 }
 
