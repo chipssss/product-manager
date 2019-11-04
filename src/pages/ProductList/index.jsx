@@ -60,10 +60,12 @@ export default function TopicList() {
     <div>
       <IceContainer className={styles.container}>
         <ContainerTitle
+          buttonText="下载"
           title="产品列表"
+          onClick={onDownloadClick}
           className={styles.title}
         />
-        <Filter onDownloadClick={onDownloadClick} onChange={onFilterChange} style={'margin: 20px'}/>
+        <Filter onChange={onFilterChange} style={'margin: 20px'}/>
         <TabTable onSelectChange={onSelectChange} dataSource={products}/>
         <Pagination className={styles.page} total={pageInfo.total} onChange={onPageChange}/>
       </IceContainer>

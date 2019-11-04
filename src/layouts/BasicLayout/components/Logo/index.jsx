@@ -4,8 +4,8 @@ import styles from './index.module.scss';
 
 export default function Logo({ style }) {
   return (
-    <Link to="/" style={style} className={styles.container}>
-      LOGO
+    <Link style={style} className={styles.container}>
+      MIKE
     </Link>
   );
 }

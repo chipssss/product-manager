@@ -41,6 +41,7 @@ export default function TabTable(params) {
           <Table.Column dataIndex="type" title={"类型"}/>
           <Table.Column dataIndex="remark" title={"备注"}/>
           <Table.Column dataIndex="imageList" title={"图片"} cell={renderImageList}/>
+          <Table.Column dataIndex="uploadTime" title={"上传时间"}/>
         </Table>
     </div>
   );

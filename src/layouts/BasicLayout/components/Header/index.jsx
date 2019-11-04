@@ -111,45 +111,6 @@ function Header(props) {
               );
             })}
         </Nav>
-        <Balloon
-          triggerType="hover"
-          trigger={(
-            <div
-              className={styles.iceHeaderUserpannel}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: 12,
-              }}
-            >
-              <IceImg
-                height={40}
-                width={40}
-                src={require('./images/avatar.png')}
-                className={styles.userAvatar}
-              />
-              <div className={styles.userProfile}>
-                <span className={styles.userName} style={{ fontSize: '13px' }}>
-                  淘小宝
-                </span>
-                <br />
-                <span className={styles.userDepartment}>技术部</span>
-              </div>
-              <Icon type="arrow-down" size="xxs" className={styles.iconDown} />
-            </div>
-          )}
-          closable={false}
-          className={styles.userProfileMenu}
-        >
-          <ul>
-            <li className={styles.userProfileMenuItem}>
-              <Link to="/user/login">退出登录</Link>
-            </li>
-            <li className={styles.userProfileMenuItem}>
-              <Link to="/setting/my">个人设置</Link>
-            </li>
-          </ul>
-        </Balloon>
       </div>
     </div>
   );

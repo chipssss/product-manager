@@ -4,8 +4,12 @@
 const headerMenuConfig = [
   {
     name: '首页',
-    path: '/',
+    path: '/dashboard',
     icon: 'home',
+  },
+  {
+    name: '退出登录',
+    path: '/',
   }
 ];
 
@@ -13,7 +17,7 @@ const headerMenuConfig = [
 
 const asideMenuConfig = [
   {
-    name: 'Dashboard',
+    name: '数据展示',
     path: '/',
     icon: 'home',
     children: [

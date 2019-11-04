@@ -8,6 +8,7 @@ import {
 } from '@icedesign/form-binder';
 import FoundationSymbol from '@icedesign/foundation-symbol';
 import styles from './index.module.scss';
+import {apiLogin} from "@/api/user";
 
 function UserLogin(props) {
   const [formValue, setFormValue] = useState({
@@ -28,9 +29,10 @@ function UserLogin(props) {
         console.log('errors', errors);
         return;
       }
-      console.log(values);
-      Message.success('登录成功');
-      props.history.push('/');
+      apiLogin(formValue).then(res => {
+        Message.success('登录成功');
+        props.history.push('/dashboard');
+      }, err => Message.error('登陆失败，'+err));
     });
   };
 
@@ -67,12 +69,6 @@ function UserLogin(props) {
             <IceFormError name="password" />
           </div>
 
-          <div className={styles.formItem}>
-            <IceFormBinder name="checkbox">
-              <Checkbox className={styles.checkbox}>记住账号</Checkbox>
-            </IceFormBinder>
-          </div>
-
           <div className={styles.footer}>
             <Button
               type="primary"
@@ -81,9 +77,6 @@ function UserLogin(props) {
             >
               登 录
             </Button>
-            <Link to="/user/register" className={styles.tips}>
-              立即注册
-            </Link>
           </div>
         </div>
       </IceFormBinderWrapper>

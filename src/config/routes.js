@@ -19,10 +19,6 @@ const routerConfig = [
         component: UserLogin,
       },
       {
-        path: '/register',
-        component: UserRegister,
-      },
-      {
         path: '/',
         redirect: '/user/login',
       },
@@ -53,7 +49,7 @@ const routerConfig = [
       },
       {
         path: '/',
-        redirect: '/dashboard',
+        redirect: '/user',
       },
       {
         component: NotFound,

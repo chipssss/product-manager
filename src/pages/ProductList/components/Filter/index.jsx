@@ -26,16 +26,11 @@ export default function Filter(props) {
           <div className={styles.formItem}>
             <span className={styles.formLabel}>搜索：</span>
             <IceFormBinder triggerType="onBlur" name="search">
-              <Input placeholder="请输入" className={styles.input} />
+              <Input placeholder="请输入产品名或商家名" className={styles.input} />
             </IceFormBinder>
             <div className={styles.formError}>
               <IceFormError name="store" />
             </div>
-          </div>
-        </Col>
-        <Col l="6">
-          <div className={styles.formItem}>
-            <Button type={"primary"} size={"large"} onClick={props.onDownloadClick}>下载</Button>
           </div>
         </Col>
       </Row>
