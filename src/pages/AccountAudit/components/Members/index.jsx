@@ -7,14 +7,14 @@ import {apiSupplierGetList, apiSupplierGetUnPassedList, apiSupplierVerify} from 
 
 export default function Member(params) {
   const [dataSource, setDataSource] = useState([]);
-  const selected = [];
+  const [selected, setSelected] = useState([]);
   const rowSelection = {
     onSelect: function (selected, record, records) {
-      selected = records;
+      setSelected(records);
       console.log('onSelect', selected, record, records);
     },
     onSelectAll: function (selected, records) {
-      selected = records;
+      setSelected(records);
       console.log('onSelectAll', selected, records);
     }
   };
@@ -27,16 +27,14 @@ export default function Member(params) {
   };
 
   const auditSuccess = () => {
-    checkSelected();
+    if (selected.length === 0) {
+      Message.warning('请先选择对应用户')
+      return;
+    }
     apiSupplierVerify(selected).then(res => {
       Message.success('审核成功');
       pullData();
     }).catch(err => Message.error('审核失败，' + err));
-  };
-
-  const checkSelected = () => {
-    if (selected.length === 0)
-      Message.warning('请先选择对应用户')
   };
 
   const renderProfile = (value, index, record) => {

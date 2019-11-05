@@ -24,7 +24,11 @@ function getSupplierListByStatus(status) {
  * @param params [] ，审核id列表
  * @returns {Promise<unknown>}
  */
-export function apiSupplierVerify(supplierIdList) {
+export function apiSupplierVerify(supplierItems) {
+  console.debug('items', supplierItems)
+  // 转化提取除id
+  const supplierIdList = [];
+  supplierItems.forEach(item => supplierIdList.push(item.id));
   return post('backend/user/verifySupplier.do', {
     supplierIds: supplierIdList
   })

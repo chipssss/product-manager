@@ -12,8 +12,8 @@ export const COOKIE_KEY = {
 };
 
 export const SERVER = {
-  // BASE_URL: 'http://47.100.41.135:8080/',
-  BASE_URL: 'http://localhost:8080/',
+  BASE_URL: 'http://47.100.41.135:8080/',
+  // BASE_URL: 'http://localhost:8080/',
   IMAGE_URL: 'http://img.mikelam.top/'
 };
 
